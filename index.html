@@ -64,7 +64,7 @@
       for (const categoria in grouped) {
         const link = document.createElement('a');
         link.href = `#${categoria.replace(/\s+/g, '-')}`;
-        link.className = "bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600 transition";
+        link.className = "bg-orange-500 text-black px-4 py-2 rounded shadow hover:bg-orange-600 transition";
         link.innerText = categoria;
         indiceDiv.appendChild(link);
       }
