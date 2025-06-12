@@ -18,7 +18,7 @@
     #category-nav.hidden, #loading-message.hidden, #error-message.hidden, #no-items-message.hidden {
       display: none;
     }
-    /* Estilo para ocultar a imagem se der erro de carregamento (já estava no seu código anterior, vou re-incorporar) */
+    /* Estilo para ocultar a imagem se der erro de carregamento */
     img[onerror] {
       display: none;
     }
@@ -34,7 +34,7 @@
     <h1 class="text-3xl font-bold mb-6 text-center">Cardápio Rota</h1>
 
     <nav id="category-nav" class="mb-8 p-4 bg-white rounded shadow sticky top-0 z-10 hidden">
-      <h2 class="text-xl font-bold mb-4">Categorias</h2>
+      <h2 class="text-xl font-bold mb-4 text-center">Categorias</h2>
       <ul class="flex flex-wrap gap-2 justify-center" id="category-list">
         </ul>
     </nav>
@@ -163,7 +163,7 @@
 
             grouped[categoria].forEach(item => {
                 section.innerHTML += `
-                  <div class="flex items-start mb-4 p-4 bg-orange-100 text-orange-900 rounded shadow space-x-4">
+                  <div class="flex items-start mb-4 p-4 bg-orange-100 text-gray-900 rounded shadow space-x-4">
                     ${item.Imagem ? `<img src="${item.Imagem}" alt="${item.Nome}" class="w-24 h-24 object-cover rounded" onerror="this.style.display='none'">` : ''}
                     <div class="flex-1">
                       <h3 class="text-lg font-bold">${item.Nome}</h3>
@@ -194,8 +194,8 @@
             Array.from(categories).sort().forEach(categoria => { // Ordena as categorias
                 const li = document.createElement('li');
                 const categoryId = categoria.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-                // AQUI JÁ ESTÁ bg-orange-500 e text-white, que é legível
-                li.innerHTML = `<a href="#${categoryId}" class="block px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600 transition duration-300">${categoria}</a>`;
+                // Alterado: Fundo branco, borda cinza, texto preto, hover cinza claro
+                li.innerHTML = `<a href="#${categoryId}" class="block px-3 py-1 bg-white border border-gray-300 text-gray-900 rounded hover:bg-gray-100 transition duration-300">${categoria}</a>`;
                 fragment.appendChild(li);
             });
             categoryList.appendChild(fragment);
