@@ -195,12 +195,40 @@
         });
 
         if (categories.size > 0) {
-            Array.from(categories).sort().forEach(categoria => { // Ordena as categorias
+            // Ordem personalizada das categorias
+            const customOrder = [
+                'Lanches',
+                'Salgados Fritos',
+                'Salgados Assados',
+                'Refeições',
+                'Porções',
+                'Bebidas Não Alcoólicas', // Cuidado com acentos e espaços
+                'Bebidas Alcoólicas',     // Cuidado com acentos e espaços
+                'Sobremesas'
+            ];
+
+            // Filtra e ordena as categorias com base na ordem personalizada
+            const sortedCategories = Array.from(categories).sort((a, b) => {
+                const indexA = customOrder.indexOf(a);
+                const indexB = customOrder.indexOf(b);
+
+                // Se uma categoria não estiver na ordem personalizada, ela irá para o final
+                // (opcionalmente, pode-se adicionar uma lógica para ordená-las alfabeticamente aqui)
+                if (indexA === -1 && indexB === -1) {
+                    return a.localeCompare(b); // Se ambas não estiverem na lista, ordena alfabeticamente
+                }
+                if (indexA === -1) return 1; // Coloca 'a' no final se não estiver na lista
+                if (indexB === -1) return -1; // Coloca 'b' no final se não estiver na lista
+
+                return indexA - indexB; // Ordena pela posição na lista personalizada
+            });
+
+            sortedCategories.forEach(categoria => {
                 const li = document.createElement('li');
                 // Normaliza o nome da categoria para usar como ID do link
                 const categoryId = categoria.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-                // Alterado: Fundo branco, borda cinza, texto preto, hover cinza claro - sem box laranja
-                li.innerHTML = `<a href="#${categoryId}" class="block px-3 py-1 bg-white border border-gray-300 text-gray-900 rounded hover:bg-gray-100 transition duration-300">${categoria}</a>`;
+                // Alterado: Fundo laranja (bg-orange-500), texto preto (text-gray-900), bordas arredondadas (rounded)
+                li.innerHTML = `<a href="#${categoryId}" class="block px-3 py-1 bg-orange-500 text-gray-900 rounded hover:bg-orange-600 transition duration-300">${categoria}</a>`;
                 fragment.appendChild(li);
             });
             categoryList.appendChild(fragment);
